@@ -12,7 +12,6 @@
 #import "RowTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
-#define PREFFERED_WIDTH 296
 
 #define PADDING 21+10+60
 
@@ -88,12 +87,10 @@
 
     height += [self getHeightForLabel:cell.detailLabel withText:thisRow.descriptionText];
     
-    NSLog(@"Before %f", height);
     if ((thisRow.imageLink != nil) && (height < IMAGE_HEIGHT)){
         
         
         height =IMAGE_HEIGHT + 20;
-        NSLog(@"After %f", height);
     }
     return  height;
 }
@@ -124,13 +121,14 @@
     newFrame.size.height = [self getHeightForLabel:cell.detailLabel withText:thisRow.descriptionText];
     cell.detailLabel.frame = newFrame;
     
+    
     if (thisRow.imageLink != nil) {
         
         [cell.image setImageWithURL:[NSURL URLWithString: thisRow.imageLink] placeholderImage:[UIImage imageNamed:@"imageLoading.png"]];
     }
     else
     {
-        cell.image = nil;
+        cell.image.image = nil;
     }
     return cell;
 }
@@ -143,7 +141,22 @@
 #pragma -mark internal
 -(CGFloat)getHeightForLabel:(UILabel*)label withText:(NSString*)text
 {
-    CGSize maximumLabelSize = CGSizeMake(PREFFERED_WIDTH, FLT_MAX);
+    CGFloat prefferedWidth = 200;
+    
+    
+    NSLog(@"Screen Heigh %f",[[UIScreen mainScreen] bounds].size.height);
+    if (([[UIScreen mainScreen] bounds].size.height  > 600) && ([[UIScreen mainScreen] bounds].size.height<700)){
+        
+        prefferedWidth = 250;
+        
+    }
+    else if ([[UIScreen mainScreen] bounds].size.height > 700)
+    {
+        prefferedWidth = 300;
+    }
+
+
+    CGSize maximumLabelSize = CGSizeMake(prefferedWidth, FLT_MAX);
     
     CGSize expectedLabelSize = [text sizeWithFont:label.font constrainedToSize:maximumLabelSize lineBreakMode:label.lineBreakMode];
     
