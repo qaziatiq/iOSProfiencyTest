@@ -7,7 +7,12 @@
 //
 
 #import "AFHTTPClient.h"
+#import "Response.h"
 
 @interface HTTPClient : AFHTTPClient
 
++ (HTTPClient *) sharedClient;
+
+-(void) getListsuccess:(void (^)(NSDictionary *result))success
+               failure:(void (^)(NSError *error))failure;
 @end
