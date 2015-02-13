@@ -4,13 +4,13 @@
 
 @implementation Response
 
-@synthesize rows;
-@synthesize title;
+@synthesize rows = _rows;
+@synthesize title =  _title;
 
 + (Response *)instanceFromDictionary:(NSDictionary *)aDictionary
 {
 
-    Response *instance = [[Response alloc] init];
+    Response *instance = [[[Response alloc] init] autorelease];
     [instance setAttributesFromDictionary:aDictionary];
     return instance;
 
@@ -67,6 +67,14 @@
 
     return dictionary;
 
+}
+
+- (void)dealloc
+{
+    [_title release];
+    [_rows release];
+    [super dealloc];
+    
 }
 
 

@@ -19,22 +19,34 @@
 
 @interface ViewController ()
 
-@property Response *serverResponse;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+@synthesize tableView = _tableView;
+
+-(void)refresh:(UIRefreshControl *)refreshControl
+{
+    
     
     HTTPClient *thisClient = [HTTPClient sharedClient];
     
+    
     [thisClient getListsuccess:^(NSDictionary *result) {
         
-        _serverResponse = [Response instanceFromDictionary:result];
+        serverResponse = [[Response instanceFromDictionary:result] retain];
         
+        
+        self.navigationItem.title = serverResponse.title;
+
+
+        
+        if (refreshControl != nil) {
+            
+        
+        [refreshControl endRefreshing];
+        }
         [_tableView reloadData];
         
     } failure:^(NSError *error) {
@@ -46,6 +58,18 @@
                                               otherButtonTitles:nil];
         [alert show];
     }];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    [self refresh:nil];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,7 +87,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _serverResponse.rows.count;
+    return serverResponse.rows.count;
 }
 
 
@@ -74,15 +98,15 @@
     static NSString *MyIdentifier = @"tableCell";
 
     
-    Row *thisRow = _serverResponse.rows[indexPath.row];
+    Row *thisRow = serverResponse.rows[indexPath.row];
     
     
     RowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     
     if (cell == nil)
     {
-        cell = [[RowTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:MyIdentifier] ;
+        cell = [[[RowTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:MyIdentifier] autorelease];
     }
 
     height += [self getHeightForLabel:cell.detailLabel withText:thisRow.descriptionText];
@@ -100,14 +124,14 @@
 {
     static NSString *MyIdentifier = @"tableCell";
     
-    Row *thisRow = _serverResponse.rows[indexPath.row];
+    Row *thisRow = serverResponse.rows[indexPath.row];
     
     RowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     
     if (cell == nil)
     {
-        cell = [[RowTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:MyIdentifier] ;
+        cell = [[[RowTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:MyIdentifier] autorelease] ;
     }
     
  
@@ -134,7 +158,7 @@
 }
 - (void)dealloc {
     [_tableView release];
-    [_serverResponse release];
+    [serverResponse release];
     [super dealloc];
 }
 

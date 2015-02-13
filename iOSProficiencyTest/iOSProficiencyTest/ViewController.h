@@ -10,7 +10,10 @@
 #import "Response.h"
 
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-
+{
+@private
+    Response *serverResponse;
+}
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
 
 

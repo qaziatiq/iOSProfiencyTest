@@ -35,9 +35,9 @@
      {
          
    
-         NSString *response =[[NSString alloc] initWithData:responseObject encoding:NSASCIIStringEncoding];
+         NSString *response =[[[NSString alloc] initWithData:responseObject encoding:NSASCIIStringEncoding]autorelease];
          
-         NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
+         NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding] ;
          __block NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
          
          success(responseDict);

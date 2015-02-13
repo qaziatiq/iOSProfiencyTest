@@ -2,14 +2,14 @@
 
 @implementation Row
 
-@synthesize descriptionText;
-@synthesize imageLink;
-@synthesize itemTitle;
+@synthesize descriptionText = _descriptionText;
+@synthesize imageLink = _imageLink;
+@synthesize itemTitle = _itemTitle;
 
 + (Row *)instanceFromDictionary:(NSDictionary *)aDictionary
 {
 
-    Row *instance = [[Row alloc] init];
+    Row *instance = [[[Row alloc] init] autorelease];
     [instance setAttributesFromDictionary:aDictionary];
     return instance;
 
@@ -61,6 +61,14 @@
 
     return dictionary;
 
+}
+
+-(void) dealloc
+{
+    [_descriptionText release];
+    [_imageLink release];
+    [_itemTitle release];
+    [super dealloc];
 }
 
 

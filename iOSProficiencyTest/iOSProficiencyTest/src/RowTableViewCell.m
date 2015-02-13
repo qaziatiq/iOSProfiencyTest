@@ -10,6 +10,10 @@
 
 @implementation RowTableViewCell
 
+@synthesize image = _image;
+@synthesize titleLable = _titleLable;
+@synthesize  detailLabel = _detailLabel;
+
 - (void)awakeFromNib {
     // Initialization code
 }
