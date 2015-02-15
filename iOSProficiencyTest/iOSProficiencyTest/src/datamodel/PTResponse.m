@@ -70,8 +70,8 @@
 
 - (void)dealloc
 {
-  [_title release];
   [_rows release];
+  [_title release];
   [super dealloc];
   
 }

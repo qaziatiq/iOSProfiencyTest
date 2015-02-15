@@ -10,7 +10,7 @@
 
 @interface PTRowTableViewCell : UITableViewCell
 @property (retain, nonatomic) IBOutlet UIImageView *image;
-@property (retain, nonatomic) IBOutlet UILabel *titleLable;
+@property (retain, nonatomic) IBOutlet UILabel *titleLabel;
 @property (retain, nonatomic) IBOutlet UILabel *detailLabel;
 
 @end

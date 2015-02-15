@@ -24,7 +24,7 @@
 
 - (void)dealloc {
   [_image release];
-  [_titleLable release];
+  [_titleLabel release];
   [_detailLabel release];
   [super dealloc];
 }

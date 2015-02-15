@@ -42,7 +42,8 @@ NSString* const kFFactsURL = @"https://dl.dropboxusercontent.com/u/746330/facts.
      
      success(responseDict);
      
-   } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+   }
+        failure:^(AFHTTPRequestOperation *operation, NSError *error)
    {
      
      failure(error);

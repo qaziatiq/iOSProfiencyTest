@@ -16,37 +16,28 @@
 CGFloat const kPadding = 21+10+60;
 int const kImageHeight = 100;
 
-
-
 @interface PTViewController ()
-
 
 @end
 
 @implementation PTViewController
 
-
 -(void)refresh:(UIRefreshControl *)refreshControl
 {
   
-  
   HTTPClient *thisClient = [HTTPClient sharedClient];
-  
   
   [thisClient getListsuccess:^(NSDictionary *result) {
     
     serverResponse = [[PTResponse instanceFromDictionary:result] retain];
     
-    
     self.navigationItem.title = serverResponse.title;
-    
-    
     
     if (refreshControl != nil) {
       
-      
       [refreshControl endRefreshing];
     }
+    
     [_tableView reloadData];
     
   } failure:^(NSError *error) {
@@ -135,17 +126,14 @@ int const kImageHeight = 100;
   }
   
   
-  cell.titleLable.text = thisRow.itemTitle;
+  cell.titleLabel.text = thisRow.itemTitle;
   cell.detailLabel.text = thisRow.descriptionText;
-  
-  
-  
+
   //adjust the label the the new height.
   CGRect newFrame = cell.detailLabel.frame;
   newFrame.size.height = [self getHeightForLabel:cell.detailLabel withText:thisRow.descriptionText];
   cell.detailLabel.frame = newFrame;
-  
-  
+
   if (thisRow.imageLink != nil) {
     
     [cell.image setImageWithURL:[NSURL URLWithString: thisRow.imageLink] placeholderImage:[UIImage imageNamed:@"imageLoading.png"]];
