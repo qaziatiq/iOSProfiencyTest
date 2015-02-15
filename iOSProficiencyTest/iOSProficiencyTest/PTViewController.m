@@ -13,9 +13,10 @@
 #import "UIImageView+AFNetworking.h"
 
 
-#define PADDING 21+10+60
+CGFloat const kPadding = 21+10+60;
+int const kImageHeight = 100;
 
-#define IMAGE_HEIGHT 100
+
 
 @interface PTViewController ()
 
@@ -93,7 +94,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  CGFloat height = PADDING ;
+  CGFloat height = kPadding ;
   static NSString *MyIdentifier = @"tableCell";
   
   
@@ -110,10 +111,10 @@
   
   height += [self getHeightForLabel:cell.detailLabel withText:thisRow.descriptionText];
   
-  if ((thisRow.imageLink != nil) && (height < IMAGE_HEIGHT)){
+  if ((thisRow.imageLink != nil) && (height < kImageHeight)){
     
     
-    height =IMAGE_HEIGHT + 20;
+    height =kImageHeight + 20;
   }
   return  height;
 }

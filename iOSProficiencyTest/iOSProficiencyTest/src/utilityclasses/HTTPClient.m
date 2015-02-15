@@ -8,8 +8,8 @@
 
 #import "HTTPClient.h"
 
-#define MAIN_URL @"https://dl.dropboxusercontent.com/u/746330/"
-#define FACTS_URL @"https://dl.dropboxusercontent.com/u/746330/facts.json"
+NSString *const kMainURL = @"https://dl.dropboxusercontent.com/u/746330/";
+NSString* const kFFactsURL = @"https://dl.dropboxusercontent.com/u/746330/facts.json";
 
 @implementation HTTPClient
 
@@ -18,7 +18,7 @@
   static HTTPClient *_sharedClient = nil;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    _sharedClient = [[[self alloc] initWithBaseURL:[NSURL URLWithString:MAIN_URL]] autorelease];
+    _sharedClient = [[[self alloc] initWithBaseURL:[NSURL URLWithString:kMainURL]] autorelease];
   });
   
   return _sharedClient;
@@ -31,7 +31,7 @@
 {
   
   
-  [self getPath:FACTS_URL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+  [self getPath:kFFactsURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
    {
      
      
