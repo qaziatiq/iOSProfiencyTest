@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Response.h"
+#import "PTResponse.h"
 
-@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PTViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
 @private
-    Response *serverResponse;
+    PTResponse *serverResponse;
 }
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
 

@@ -15,13 +15,13 @@
 
 + (HTTPClient *)sharedClient
 {
-    static HTTPClient *_sharedClient = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedClient = [[[self alloc] initWithBaseURL:[NSURL URLWithString:MAIN_URL]] autorelease];
-    });
-    
-    return _sharedClient;
+  static HTTPClient *_sharedClient = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    _sharedClient = [[[self alloc] initWithBaseURL:[NSURL URLWithString:MAIN_URL]] autorelease];
+  });
+  
+  return _sharedClient;
 }
 
 
@@ -29,26 +29,26 @@
                failure:(void (^)(NSError *error))failure
 
 {
-    
- 
-    [self getPath:FACTS_URL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         
-   
-         NSString *response =[[[NSString alloc] initWithData:responseObject encoding:NSASCIIStringEncoding]autorelease];
-         
-         NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding] ;
-         __block NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-         
-         success(responseDict);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         
-         failure(error);
-         
-     }];
-    
+  
+  
+  [self getPath:FACTS_URL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+   {
+     
+     
+     NSString *response =[[[NSString alloc] initWithData:responseObject encoding:NSASCIIStringEncoding]autorelease];
+     
+     NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding] ;
+     __block NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+     
+     success(responseDict);
+     
+   } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+   {
+     
+     failure(error);
+     
+   }];
+  
 }
 
 

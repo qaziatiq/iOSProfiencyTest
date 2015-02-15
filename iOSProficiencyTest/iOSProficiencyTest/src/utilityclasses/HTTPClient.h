@@ -7,7 +7,7 @@
 //
 
 #import "AFHTTPClient.h"
-#import "Response.h"
+#import "PTResponse.h"
 
 @interface HTTPClient : AFHTTPClient
 

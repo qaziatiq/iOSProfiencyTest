@@ -1,16 +1,11 @@
 #import <Foundation/Foundation.h>
 
-@interface Response : NSObject {
-
-    NSArray *rows;
-    NSString *title;
-
-}
+@interface PTResponse : NSObject 
 
 @property (nonatomic, copy) NSArray *rows;
 @property (nonatomic, copy) NSString *title;
 
-+ (Response *)instanceFromDictionary:(NSDictionary *)aDictionary;
++ (PTResponse *)instanceFromDictionary:(NSDictionary *)aDictionary;
 - (void)setAttributesFromDictionary:(NSDictionary *)aDictionary;
 
 - (NSDictionary *)dictionaryRepresentation;

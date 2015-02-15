@@ -1,18 +1,12 @@
 #import <Foundation/Foundation.h>
 
-@interface Row : NSObject {
-
-    NSString *descriptionText;
-    NSString *imageLink;
-    NSString *itemTitle;
-
-}
+@interface PTRow : NSObject 
 
 @property (nonatomic, copy) NSString *descriptionText;
 @property (nonatomic, copy) NSString *imageLink;
 @property (nonatomic, copy) NSString *itemTitle;
 
-+ (Row *)instanceFromDictionary:(NSDictionary *)aDictionary;
++ (PTRow *)instanceFromDictionary:(NSDictionary *)aDictionary;
 - (void)setAttributesFromDictionary:(NSDictionary *)aDictionary;
 
 - (NSDictionary *)dictionaryRepresentation;
